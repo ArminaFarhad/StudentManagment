@@ -1,0 +1,18 @@
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="is_teacher">Sign up as a Teacher</label>
+    <input type="checkbox" name="is_teacher" id="is_teacher" {% if form.is_teacher.value %}checked{% endif %}><br>
+
+    <label for="subject">Subject (required for Teachers)</label>
+    <input type="text" name="subject" id="subject" {% if form.is_teacher.value %}required{% endif %}>
+
+    <label for="grade_level">Grade Level (required for Students)</label>
+    <input type="text" name="grade_level" id="grade_level" {% if not form.is_teacher.value %}required{% endif %}>
+
+    <button type="submit">Sign Up</button>
+</form>
+{% endblock %}

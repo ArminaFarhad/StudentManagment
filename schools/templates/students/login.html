@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Enable dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                color-scheme: dark;
+            }
+        }
+
+        /* Custom dark mode colors */
+        body.dark {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+
+        .dark input {
+            background-color: #2d3748;
+            color: #cbd5e0;
+        }
+
+        .dark label {
+            color: #cbd5e0;
+        }
+
+        .dark button {
+            background-color: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .dark button:hover {
+            background-color: #2d3748;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark dark:bg-gray-900 dark:text-gray-300 min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100 text-center">Login</h2>
+        <form method="post" class="flex flex-col gap-4" >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="w-full mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors">
+                Login
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Toggle dark mode based on user's system preference or manual toggle
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+        }
+    </script>
+</body>
+
+</html>

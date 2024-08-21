@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Assign Grade</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="student">Student:</label>
+    <select name="student" id="student">
+        {% for student in students %}
+        <option value="{{ student.id }}">{{ student.user.username }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="subject">Subject:</label>
+    <select name="subject" id="subject">
+        {% for subject in subjects %}
+        <option value="{{ subject.id }}">{{ subject.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="grade">Grade:</label>
+    <input type="number" name="grade" id="grade" required>
+
+    <button type="submit">Assign Grade</button>
+</form>
+{% endblock %}

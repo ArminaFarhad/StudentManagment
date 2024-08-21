@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Grades</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>{{ user.username }}'s Grades</h1>
+        
+        {% if user.is_student %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in user.student.subjects.all %}
+                <tr>
+                    <td>{{ subject.name }}</td>
+                    <td>{{ subject.teacher.first_name }} {{ subject.teacher.last_name }}</td>
+                    <td>
+                        {% with grade=subject.grade_set.get(student=user) %}
+                            {{ grade.grade }}
+                        {% endwith %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>You do not have permission to view this page.</p>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{% url 'profile' %}">Back to Profile</a>
+            <a href="{% url 'home' %}">Back to Dashboard</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

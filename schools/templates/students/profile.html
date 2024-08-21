@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ student.name }}'s Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Enable dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                color-scheme: dark;
+            }
+        }
+
+        /* Custom dark mode colors */
+        body.dark {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+
+        .dark table {
+            border-color: #2d3748;
+        }
+
+        .dark th, .dark td {
+            border-bottom: 1px solid #2d3748;
+        }
+
+        .dark th {
+            color: #a0aec0;
+        }
+
+        .dark p, .dark strong {
+            color: #cbd5e0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark dark:bg-gray-900 dark:text-gray-300 min-h-screen flex items-center justify-center">
+    <div class="max-w-4xl w-full p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+            {{ student.user.name }}'s Profile
+        </h1>
+
+        <div class="profile-info mb-6">
+            <p class="text-lg mb-2"><strong>Username:</strong> {{ student.user.username }}</p>
+            <p class="text-lg mb-2"><strong>Name:</strong> {{ student.user.name }}</p>
+            <p class="text-lg mb-2"><strong>Email:</strong> {{ student.user.email }}</p>
+            <p class="text-lg mb-2"><strong>Grade Level:</strong> {{ student.grade_level }}</p>
+        </div>
+
+        <div class="grades mb-6">
+            <p class="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-200"><strong>Grades</strong></p>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200 dark:bg-gray-700">
+                            <th class="py-2 px-4 border-b dark:border-gray-600">Subject</th>
+                            <th class="py-2 px-4 border-b dark:border-gray-600">Grade</th>
+                            <th class="py-2 px-4 border-b dark:border-gray-600">Teacher</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for grade in grades %}
+                        <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <td class="py-2 px-4">{{ grade.subject.name }}</td>
+                            <td class="py-2 px-4">{{ grade.grade }}</td>
+                            <td class="py-2 px-4">{{ grade.teacher.user.name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle dark mode based on user's system preference or manual toggle
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark');
+        }
+    </script>
+</body>
+
+</html>
